@@ -11,7 +11,13 @@
         <VM:MainWindowViewModel/>
     </Window.DataContext>
     <Grid>
-        <TreeView x:Name="MainTreeView" HorizontalAlignment="Stretch" Margin="10,10,677,10" VerticalAlignment="Stretch" ItemsSource="{Binding Clients}">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="400" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <TreeView Grid.Column="0" x:Name="MainTreeView" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" ItemsSource="{Binding Clients}">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding WorkAreas}" DataType="{x:Type VM:Client}">
                     <Label Content="{Binding ClientName}"/>
@@ -28,16 +34,38 @@
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
+        <Canvas Grid.Column="1">
+            <Grid x:Name="ClientForm">
+                <StackPanel HorizontalAlignment="Left" Width="250">
+                    <TextBox Text="Name"/>
+                    <TextBox Text="Address"/>
+                </StackPanel>
+            </Grid>
+            <Grid x:Name="WorkAreaForm">
+                <StackPanel HorizontalAlignment="Left" Width="250">
+                    <ComboBox>
+                        <ComboBoxItem>Client 1</ComboBoxItem>
+                    </ComboBox>
+                    <TextBox Text="Description"/>
+                    <TextBox Text="Objective"/>
+                </StackPanel>
+            </Grid>
+            <Grid x:Name="DealsForm">
+                <StackPanel HorizontalAlignment="Left" Width="250">
+                    <ComboBox>
+                        <ComboBoxItem>Client 1</ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox>
+                        <ComboBoxItem>Work Area 1</ComboBoxItem>
+                    </ComboBox>
+                    <TextBox Text="Buyer Customer"/>
+                    <TextBox Text="Deal Details"/>
+                </StackPanel>
+            </Grid>
+        </Canvas>
 
-        <Grid x:Name="ClientForm" Margin="150,10,150,10">
-            <StackPanel HorizontalAlignment="Left" Width="250">
-                <TextBox Text="Name"/>
-                <TextBox Text="Address"/>
-            </StackPanel>
 
-        </Grid>
-
-        <StackPanel HorizontalAlignment="Right">
+        <StackPanel Grid.Column="2" HorizontalAlignment="Right">
             <Button>Add New Client</Button>
             <Button>New WorkArea</Button>
             <Button>New Deal</Button>
