@@ -1,0 +1,47 @@
+﻿<Window x:Class="TreeViewMVVMBinding.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TreeViewMVVMBinding"
+        xmlns:VM="clr-namespace:TreeViewMVVMBinding"  
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <VM:MainWindowViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <TreeView x:Name="MainTreeView" HorizontalAlignment="Stretch" Margin="10,10,677,10" VerticalAlignment="Stretch" ItemsSource="{Binding Clients}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding WorkAreas}" DataType="{x:Type VM:Client}">
+                    <Label Content="{Binding ClientName}"/>
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Deals}" DataType="{x:Type VM:WorkArea}">
+                            <Label Content="{Binding WorkAreaName}"/>
+                            <HierarchicalDataTemplate.ItemTemplate>
+                                <DataTemplate DataType="{x:Type VM:Deal}">
+                                    <Label Content="{Binding DealName}"/>
+                                </DataTemplate>
+                            </HierarchicalDataTemplate.ItemTemplate>
+                        </HierarchicalDataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+
+        <Grid x:Name="ClientForm" Margin="150,10,150,10">
+            <StackPanel HorizontalAlignment="Left" Width="250">
+                <TextBox Text="Name"/>
+                <TextBox Text="Address"/>
+            </StackPanel>
+
+        </Grid>
+
+        <StackPanel HorizontalAlignment="Right">
+            <Button>Add New Client</Button>
+            <Button>New WorkArea</Button>
+            <Button>New Deal</Button>
+            <Button>New Task</Button>
+        </StackPanel>
+    </Grid>
+</Window>
